@@ -44,6 +44,7 @@ namespace Git_Diff
             else
             {
                 Console.WriteLine("The compared that you have selected are not the same");
+                //C: new method here
             }
         }
 
@@ -51,9 +52,10 @@ namespace Git_Diff
         static bool Compare_Files(string First_File, string Second_File)
         {
             bool Files_Same;
+            string[] vs = First_File.Split(".");
 
             // if the arguments are the same, return outcome as true
-            if(First_File == Second_File)
+            if (First_File == Second_File)
             {
                 Files_Same = true;
             }
