@@ -9,6 +9,11 @@ namespace Git_Diff
 {
     class Program
     {
+        //notes:
+        // UI needs rebuilding, might struggle with how the verifcation is arranged
+        // Still need to figure out how to define - or +
+        // Line numbers need to be done.
+        // Comment on Everything
         static void Main(string[] args)
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
@@ -53,29 +58,29 @@ namespace Git_Diff
         {
             bool Files_Same;
             Files_Same = true;
-            string[] First = First_File.Split(".");
-            string[] Second = Second_File.Split(".");
+            string[] FirstSentences = First_File.Split(".");
+            string[] SecondSentences = Second_File.Split(".");
 
-            for(int I = 0; I < First.Length; I++)
+            for(int I = 0; I < FirstSentences.Length; I++)
             {
-                if (First[I] != Second[I])
+                if (FirstSentences[I] != SecondSentences[I])
                 {
                     Files_Same = false;
-                    string[] rs = First[I].Split();
-                    string[] ys = Second[I].Split();
+                    string[] FirstSentenceWord = FirstSentences[I].Split();
+                    string[] SecondSentenceWord = SecondSentences[I].Split();
 
-                    for (int R = 0; R < First.Length; R++)
+                    for (int R = 0; R < FirstSentenceWord.Length; R++)
                     {
-                        if (rs[R] != ys[R])
+                        if (FirstSentenceWord[R] != SecondSentenceWord[R])
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write($"{ys[R]}");
+                            Console.Write($"{SecondSentenceWord[R]}");
                             Console.ForegroundColor = ConsoleColor.White;
                         }
 
                         else
                         {
-                            Console.Write($"{rs[R]}");
+                            Console.Write($"{FirstSentenceWord[R]}");
                         }
 
                     }
