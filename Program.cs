@@ -11,24 +11,31 @@ namespace Git_Diff
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(Directory.GetCurrentDirectory());
 
-            Console.Write(">: [Input] ");
+            Console.WriteLine("The following doscuments are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
+            Console.WriteLine("Please select the first document you wish to compare: ");
+            
 
-            string[] Files_Compare = Console.ReadLine().Split();
-
+            //User inputs the first file they wish to compare.
+            string First_FilePath = Console.ReadLine();
 
             // The returned string is stored as a local variable within Main()
-            string First_File = ReadFiles.readFiles(Files_Compare[1]);
-            StreamReader First_Reader = new StreamReader(Files_Compare[1]);
+            string First_File = ReadFiles.readFiles(First_FilePath);
+            StreamReader First_Reader = new StreamReader(First_FilePath);
 
-            string Second_File = ReadFiles.readFiles(Files_Compare[2]);
-            StreamReader Second_Reader = new StreamReader(Files_Compare[2]);
+            Console.WriteLine("Please select the second document you wish to compare: ");
+
+            // The same thing is then repeated for the second file
+            string Second_FilePath = Console.ReadLine();
+            string Second_File = ReadFiles.readFiles(Second_FilePath);
+            StreamReader Second_Reader = new StreamReader(Second_FilePath);
 
             // The bool from comparefiles method is returned and stored locally;
             bool Files_Same = Compare_Files(First_File, Second_File);
 
             // If the bool is true, then the files are the same 
-            if (Files_Same)
+            if (Files_Same == true)
             {
                 Console.WriteLine(" The two files that you have selected are the same");
             }
@@ -67,10 +74,10 @@ namespace Git_Diff
         public static string readFiles(string File_Choice)
         {
             // Intialize a StreamReader object
-            StreamReader Text_Object = new StreamReader(@"" + File_Choice);
+            StreamReader Text_Object = new StreamReader(@"" + File_Choice+ ".txt");
 
             //Creates a file path for StreamReader
-            string File_Input = $@"" +File_Choice;
+            string File_Input = $@"" +File_Choice+ ".txt";
 
             //Ensures the while loop runs until a correct file path is found
             bool File_Found = false;
@@ -88,7 +95,7 @@ namespace Git_Diff
                     Console.WriteLine(" Invalid file selected, please try again:");
 
                     File_Choice = Console.ReadLine();
-                    File_Input = $@"textFiles/{File_Choice}";
+                    File_Input = $@"textFiles/{File_Choice}.txt";
                 }
             }
 
