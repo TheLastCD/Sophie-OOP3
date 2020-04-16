@@ -13,9 +13,9 @@ namespace Git_Diff
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
 
-            Console.WriteLine("The following doscuments are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
+            Console.WriteLine("The following documents are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
             Console.WriteLine("Please select the first document you wish to compare: ");
-            
+
 
             //User inputs the first file they wish to compare.
             string First_FilePath = Console.ReadLine();
@@ -52,18 +52,35 @@ namespace Git_Diff
         static bool Compare_Files(string First_File, string Second_File)
         {
             bool Files_Same;
-            string[] vs = First_File.Split(".");
+            Files_Same = true;
+            string[] First = First_File.Split(".");
+            string[] Second = Second_File.Split(".");
 
-            // if the arguments are the same, return outcome as true
-            if (First_File == Second_File)
+            for(int I = 0; I < First.Length; I++)
             {
-                Files_Same = true;
-            }
+                if (First[I] != Second[I])
+                {
+                    Files_Same = false;
+                    string[] rs = First[I].Split();
+                    string[] ys = Second[I].Split();
 
-            // If not then return false
-            else
-            {
-                Files_Same = false;
+                    for (int R = 0; R < First.Length; R++)
+                    {
+                        if (rs[R] != ys[R])
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"{ys[R]}");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+
+                        else
+                        {
+                            Console.Write($"{rs[R]}");
+                        }
+
+                    }
+                }
+
             }
             return Files_Same;
         }
@@ -76,10 +93,10 @@ namespace Git_Diff
         public static string readFiles(string File_Choice)
         {
             // Intialize a StreamReader object
-            StreamReader Text_Object = new StreamReader(@"" + File_Choice+ ".txt");
+            StreamReader Text_Object = new StreamReader(@"" + File_Choice + ".txt");
 
             //Creates a file path for StreamReader
-            string File_Input = $@"" +File_Choice+ ".txt";
+            string File_Input = $@"" + File_Choice + ".txt";
 
             //Ensures the while loop runs until a correct file path is found
             bool File_Found = false;
@@ -107,4 +124,3 @@ namespace Git_Diff
         }
     }
 }
-
