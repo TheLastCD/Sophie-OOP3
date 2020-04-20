@@ -61,6 +61,9 @@ namespace Git_Diff
             string[] FirstSentences = First_File.Split(".");
             string[] SecondSentences = Second_File.Split(".");
 
+            string Output ="";
+            string I;
+
             for (int I = 0; I < FirstSentences.Length; I++)
             {
                 if (FirstSentences[I] != SecondSentences[I])
@@ -75,11 +78,13 @@ namespace Git_Diff
                         {
                             if (FirstSentenceWord[I] != SecondSentenceWord[R+1])
                             {
+                                Output += SecondSentenceWord[R];
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.Write($"{SecondSentenceWord[R]}");
                             }
                             else
                             {
+                                Output += SecondSentenceWord[R];
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write($"{FirstSentenceWord[R]}");
                             }
@@ -89,7 +94,9 @@ namespace Git_Diff
 
                         else
                         {
+                            Output += SecondSentenceWord[R];
                             Console.Write($"{FirstSentenceWord[R]}");
+                            return logger($"sentence: {I}\n{Output}");
                         }
 
                     }
@@ -97,6 +104,11 @@ namespace Git_Diff
 
             }
             return Files_Same;
+        }
+
+       static void logger(string args)
+        {
+            File.WriteAllText(@"logfile.txt", args);
         }
     }
 
