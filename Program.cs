@@ -21,20 +21,18 @@ namespace Git_Diff
             Console.WriteLine("The following documents are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
             Console.WriteLine("Please select the first document you wish to compare: ");
 
+            string[] Userinput;
+            try
+            {
+                while(true)
+                {
+                    if((Userinput.Count != 3 || Userinput[0].lower == "diff"))
+                    {
 
-            //User inputs the first file they wish to compare.
-            string First_FilePath = Console.ReadLine();
-
-            // The returned string is stored as a local variable within Main()
-            string First_File = ReadFiles.readFiles(First_FilePath);
-            StreamReader First_Reader = new StreamReader(First_FilePath);
-
-            Console.WriteLine("Please select the second document you wish to compare: ");
-
-            // The same thing is then repeated for the second file
-            string Second_FilePath = Console.ReadLine();
-            string Second_File = ReadFiles.readFiles(Second_FilePath);
-            StreamReader Second_Reader = new StreamReader(Second_FilePath);
+                    }
+                    Userinput = Console.ReadLine().Split();
+                }
+            }
 
             // The bool from comparefiles method is returned and stored locally;
             bool Files_Same = Compare_Files(First_File, Second_File);
@@ -62,6 +60,7 @@ namespace Git_Diff
             string[] SecondSentences = Second_File.Split(".");
 
             string Output ="";
+            string I ="";
 
             for (int I = 0; I < FirstSentences.Length; I++)
             {
@@ -75,7 +74,7 @@ namespace Git_Diff
                     {
                         if (FirstSentenceWord[R] != SecondSentenceWord[R])
                         {
-                            if (FirstSentenceWord[R] != SecondSentenceWord[R+1])
+                            if (FirstSentenceWord[I] != SecondSentenceWord[R+1])
                             {
                                 Output += SecondSentenceWord[R];
                                 Console.ForegroundColor = ConsoleColor.Green;
@@ -95,16 +94,13 @@ namespace Git_Diff
                         {
                             Output += SecondSentenceWord[R];
                             Console.Write($"{FirstSentenceWord[R]}");
-
+                           
                         }
-
-
+                        logger($"sentence: {I}\n{Output}");
                     }
-                    logger($"sentence: {I}\n{Output}");
                 }
 
             }
-
             return Files_Same;
         }
 
