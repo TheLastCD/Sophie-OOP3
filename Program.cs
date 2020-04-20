@@ -95,13 +95,14 @@ namespace Git_Diff
                         {
                             Output += SecondSentenceWord[R];
                             Console.Write($"{FirstSentenceWord[R]}");
-                            logger($"sentence: {I}\n{Output}");
+
                         }
 
                     }
                 }
 
             }
+            logger($"sentence: {I}\n{Output}");
             return Files_Same;
         }
 
