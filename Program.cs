@@ -16,7 +16,6 @@ namespace Git_Diff
         // Comment on Everything
         static void Main(string[] args)
         {
-            Console.WriteLine(Directory.GetCurrentDirectory());
 
             Console.WriteLine("The following documents are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
             Console.WriteLine("Please select the first document you wish to compare: ");
@@ -42,18 +41,16 @@ namespace Git_Diff
                 while (true);
                 string First_File = ReadFiles.readFiles(Userinput[1]);
                 StreamReader First_Reader = new StreamReader(Userinput[1]);
-                string Second_File = ReadFiles.readFiles(Userinput[2]);
                 StreamReader Second_Reader = new StreamReader(Userinput[2]);
-                Files_Same = Compare_Files(First_File, Second_File);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine($"{e.Message}");
             }
 
             // The bool from comparefiles method is returned and stored locally;
-            
+
             // If the bool is true, then the files are the same 
             if (Files_Same == true)
             {
@@ -76,8 +73,7 @@ namespace Git_Diff
             string[] FirstSentences = First_File.Split(".");
             string[] SecondSentences = Second_File.Split(".");
 
-            string Output ="";
-            string I ="";
+            string Output = "";
 
             for (int I = 0; I < FirstSentences.Length; I++)
             {
@@ -91,7 +87,7 @@ namespace Git_Diff
                     {
                         if (FirstSentenceWord[R] != SecondSentenceWord[R])
                         {
-                            if (FirstSentenceWord[I] != SecondSentenceWord[R+1])
+                            if (FirstSentenceWord[I] != SecondSentenceWord[R + 1])
                             {
                                 Output += SecondSentenceWord[R];
                                 Console.ForegroundColor = ConsoleColor.Green;
@@ -111,17 +107,18 @@ namespace Git_Diff
                         {
                             Output += SecondSentenceWord[R];
                             Console.Write($"{FirstSentenceWord[R]}");
-                           
+
                         }
                         logger($"sentence: {I}\n{Output}");
                     }
+
                 }
 
             }
             return Files_Same;
         }
 
-       static void logger(string args)
+        static void logger(string args)
         {
             File.WriteAllText(@"logfile.txt", args);
         }
@@ -130,38 +127,6 @@ namespace Git_Diff
     // This class reads a singular file
     class ReadFiles
     {
-        // The method of the class
-        public static string readFiles(string File_Choice)
-        {
-            // Intialize a StreamReader object
-            StreamReader Text_Object = new StreamReader(@"" + File_Choice + ".txt");
-
-            //Creates a file path for StreamReader
-            string File_Input = $@"" + File_Choice + ".txt";
-
-            //Ensures the while loop runs until a correct file path is found
-            bool File_Found = false;
-            while (File_Found == false)
-            {
-                try
-                {
-                    Text_Object = new StreamReader(File_Input);
-
-                    File_Found = true;
-                }
-
-                catch (FileNotFoundException)
-                {
-                    Console.WriteLine(" Invalid file selected, please try again:");
-
-                    File_Choice = Console.ReadLine();
-                    File_Input = $@"textFiles/{File_Choice}.txt";
-                }
-            }
-
-            string textfile = Text_Object.ReadToEnd();
-
-            return textfile;
-        }
+        return File.ReadAllLines(File_Choice).ToString();
     }
 }
