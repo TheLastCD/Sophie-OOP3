@@ -21,36 +21,39 @@ namespace Git_Diff
             Console.WriteLine("The following documents are available for comparison: \n1 GitRepositories_1a \n2 GitRepositories_1b \n3 GitRepositories_2a \n4 GitRepositories_2b \n5 GitRepositories_3a \n6 GitRepositories_3b");
             Console.WriteLine("Please select the first document you wish to compare: ");
 
-            string[] Userinput;
+            string[] Userinput = new string[3];
+            bool Files_Same = true;
             try
             {
-                while (true)
+                do
                 {
-                    if ((Userinput.Count != 3 || Userinput[0].lower == "diff"))
+                    Userinput = Console.ReadLine().Split();
+                    if ((Userinput.Length != 2 || Userinput[0].ToLower() == "diff"))
                     {
-                        Userinput = Console.ReadLine().Split();
+                        Console.WriteLine("There has been an error");
                     }
-
                     else
                     {
-
+                        break;
                     }
+
+
                 }
-                //User inputs the first file they wish to compare.
-                string UserInput[1] = Console.ReadLine();
-
-                // The returned string is stored as a local variable within Main()
-                string First_File = ReadFiles.readFiles(UserInput[1]);
+                while (true);
+                string First_File = ReadFiles.readFiles(Userinput[1]);
                 StreamReader First_Reader = new StreamReader(Userinput[1]);
-
                 string Second_File = ReadFiles.readFiles(Userinput[2]);
                 StreamReader Second_Reader = new StreamReader(Userinput[2]);
+                Files_Same = Compare_Files(First_File, Second_File);
 
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"{e.Message}");
             }
 
             // The bool from comparefiles method is returned and stored locally;
-            bool Files_Same = Compare_Files(First_File, Second_File);
-
+            
             // If the bool is true, then the files are the same 
             if (Files_Same == true)
             {
