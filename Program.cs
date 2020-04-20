@@ -24,14 +24,28 @@ namespace Git_Diff
             string[] Userinput;
             try
             {
-                while(true)
+                while (true)
                 {
-                    if((Userinput.Count != 3 || Userinput[0].lower == "diff"))
+                    if ((Userinput.Count != 3 || Userinput[0].lower == "diff"))
+                    {
+                        Userinput = Console.ReadLine().Split();
+                    }
+
+                    else
                     {
 
                     }
-                    Userinput = Console.ReadLine().Split();
                 }
+                //User inputs the first file they wish to compare.
+                string UserInput[1] = Console.ReadLine();
+
+                // The returned string is stored as a local variable within Main()
+                string First_File = ReadFiles.readFiles(UserInput[1]);
+                StreamReader First_Reader = new StreamReader(Userinput[1]);
+
+                string Second_File = ReadFiles.readFiles(Userinput[2]);
+                StreamReader Second_Reader = new StreamReader(Userinput[2]);
+
             }
 
             // The bool from comparefiles method is returned and stored locally;
