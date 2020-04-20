@@ -62,7 +62,6 @@ namespace Git_Diff
             string[] SecondSentences = Second_File.Split(".");
 
             string Output ="";
-            string I;
 
             for (int I = 0; I < FirstSentences.Length; I++)
             {
@@ -76,7 +75,7 @@ namespace Git_Diff
                     {
                         if (FirstSentenceWord[R] != SecondSentenceWord[R])
                         {
-                            if (FirstSentenceWord[I] != SecondSentenceWord[R+1])
+                            if (FirstSentenceWord[R] != SecondSentenceWord[R+1])
                             {
                                 Output += SecondSentenceWord[R];
                                 Console.ForegroundColor = ConsoleColor.Green;
@@ -96,7 +95,7 @@ namespace Git_Diff
                         {
                             Output += SecondSentenceWord[R];
                             Console.Write($"{FirstSentenceWord[R]}");
-                            return logger($"sentence: {I}\n{Output}");
+                            logger($"sentence: {I}\n{Output}");
                         }
 
                     }
