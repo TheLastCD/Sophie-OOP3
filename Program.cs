@@ -98,11 +98,13 @@ namespace Git_Diff
 
                         }
 
+
                     }
+                    logger($"sentence: {I}\n{Output}");
                 }
 
             }
-            logger($"sentence: {I}\n{Output}");
+
             return Files_Same;
         }
 
